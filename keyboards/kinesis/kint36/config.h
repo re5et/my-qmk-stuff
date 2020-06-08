@@ -4,13 +4,20 @@
 #include "../config.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID 0x6060
-#define DEVICE_VER 0x0002
-//#define MANUFACTURER    stapelberg
+#undef VENDOR_ID
+#define VENDOR_ID 0x1209
+#undef PRODUCT_ID
+#define PRODUCT_ID 0x345C
+#undef DEVICE_VER
+#define DEVICE_VER 0x0001  // 0 or 1?
+#undef MANUFACTURER
+#define MANUFACTURER "https://github.com/stapelberg"
+#undef PRODUCT
+#define PRODUCT "https://github.com/kinx-project/kint#kint36"
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
+#define MATRIX_ROWS 15
+#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -22,16 +29,42 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS \
-    { LINE_PIN30 }
-#define MATRIX_COL_PINS \
-    { LINE_PIN2 }
+#define MATRIX_ROW_PINS               \
+    {                                 \
+        LINE_PIN27,     /* ROW_EQL */ \
+            LINE_PIN28, /* ROW_1 */   \
+            LINE_PIN29, /* ROW_2 */   \
+            LINE_PIN30, /* ROW_3 */   \
+            LINE_PIN31, /* ROW_4 */   \
+            LINE_PIN32, /* ROW_5 */   \
+            LINE_PIN1,  /* ROW_6 */   \
+            LINE_PIN3,  /* ROW_7 */   \
+            LINE_PIN0,  /* ROW_8 */   \
+            LINE_PIN4,  /* ROW_9 */   \
+            LINE_PIN5,  /* ROW_0 */   \
+            LINE_PIN9,  /* ROW_MIN */ \
+            LINE_PIN38, /* ROW_ESC */ \
+            LINE_PIN37, /* ROW_F1 */  \
+            LINE_PIN36, /* ROW_F2 */  \
+    }
+
+#define MATRIX_COL_PINS            \
+    {                              \
+        LINE_PIN20,     /* COL0 */ \
+            LINE_PIN21, /* COL1 */ \
+            LINE_PIN8,  /* COL2 */ \
+            LINE_PIN7,  /* COL3 */ \
+            LINE_PIN6,  /* COL4 */ \
+            LINE_PIN14, /* COL5 */ \
+            LINE_PIN2   /* COL6 */ \
+    }
 //#define MATRIX_ROW_PINS { D0, D1, D2, D3, D4, D5, D6, D7, C0, C1, C2, C3, C4, C5, C6 }
 //#define MATRIX_COL_PINS { B0, B1, B2, B3, B4, B5, B6 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+//#define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
