@@ -6,8 +6,8 @@
 
 #define ___ KC_NO
 
-#define KINT36_V_2017_12_09_QUIRK 1
-#ifdef KINT36_V_2017_12_09_QUIRK
+#define KINT36_V_2017_12_09_QUIRK 0
+#if KINT36_V_2017_12_09_QUIRK
 #define LAYOUT(                                   \
 	       kC0/*ESC*/, kD0/*F1*/, kE0/*F2*/, kC1/*F3*/, kD1/*F4*/, kE1/*F5*/, kC2/*F6*/, kD2/*F7*/, kE2/*F8*/, \
     k00, k10, k20, k30, k40, k50,                 \

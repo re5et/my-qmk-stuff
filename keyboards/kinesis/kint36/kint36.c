@@ -29,10 +29,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #define ledTurnOff palSetLine
 #define ledTurnOn palClearLine
 
-#define LED_KEYPAD LINE_PIN12
-#define LED_SCROLL_LOCK LINE_PIN24
-#define LED_NUM_LOCK LINE_PIN25
-#define LED_CAPS_LOCK LINE_PIN26
+#define LED_KEYPAD LINE_PIN24
+#define LED_SCROLL_LOCK LINE_PIN25
+#define LED_NUM_LOCK LINE_PIN26
+#define LED_CAPS_LOCK LINE_PIN12
 
 void led_init_ports() {
     palSetLineMode(LED_KEYPAD, PAL_MODE_OUTPUT_PUSHPULL);
@@ -54,6 +54,7 @@ void led_init_ports() {
 void led_set_kb(uint8_t usb_led) {
     measurement.report = DWT->CYCCNT;
 
+    #if 0
     const uint32_t freq_us = (freq * 5.55) / 1000;
     {
         const uint32_t diff_ns      = (measurement.report - measurement.start) * 5.55;
@@ -62,6 +63,7 @@ void led_set_kb(uint8_t usb_led) {
         const uint32_t diff_prev_us = diff_prev_ns / 1000;
         dprintf("press-to-report=%d us, press-to-usbsof=%d us, matrix-scan-freq=%d us\r\n", diff_us, diff_prev_us, freq_us);
     }
+    #endif
 
     if (usb_led & (1 << USB_LED_COMPOSE)) {
         ledTurnOn(LED_KEYPAD);
