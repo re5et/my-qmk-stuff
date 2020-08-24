@@ -39,7 +39,7 @@
  * SOFTWARE.
  */
 
-#if defined(K20x) /* chip selection */
+#if defined(K20x) || defined(MK66F18) /* chip selection */
 /* Teensy 3.0, 3.1, 3.2; mchck; infinity keyboard */
 
 // The EEPROM is really RAM with a hardware-based backup system to
@@ -99,9 +99,16 @@ void eeprom_initialize(void) {
     if (FTFL->FCNFG & FTFL_FCNFG_RAMRDY) {
         // FlexRAM is configured as traditional RAM
         // We need to reconfigure for EEPROM usage
-        FTFL->FCCOB0 = 0x80;     // PGMPART = Program Partition Command
+        FTFL->FCCOB0 = 0x80;  // PGMPART = Program Partition Command
+
+#    if defined(MK66F18)
+#        define EEESPLIT 0x10               // best endurance: 0x10 = first 25%
+        FTFL->FCCOB4 = EEESPLIT | EEESIZE;  // EEPROM Size
+        FTFL->FCCOB5 = 0x05;                // 128K dataflash for EEPROM, 128K for data
+#    else
         FTFL->FCCOB4 = EEESIZE;  // EEPROM Size
         FTFL->FCCOB5 = 0x03;     // 0K for Dataflash, 32K for EEPROM backup
+#    endif
         __disable_irq();
         // do_flash_cmd() must execute from RAM.  Luckily the C syntax is simple...
         (*((void (*)(volatile uint8_t *))((uint32_t)do_flash_cmd | 1)))(&(FTFL->FSTAT));
